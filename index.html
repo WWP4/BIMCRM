@@ -150,5 +150,21 @@
   <script>
     AOS.init({duration: 950, once: true, easing: "ease-in-out"});
   </script>
+  <script>
+const navLinks = document.querySelectorAll('.nav-link');
+const pages = document.querySelectorAll('.crm-page');
+
+navLinks.forEach(link => {
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    navLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    pages.forEach(page => page.style.display = 'none');
+    const target = link.getAttribute('data-page');
+    document.getElementById(target).style.display = 'block';
+  });
+});
+</script>
+
 </body>
 </html>
