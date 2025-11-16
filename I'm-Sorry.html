@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <title>Apology Wheel</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -33,309 +31,134 @@
     }
 
     @media (max-width: 800px) {
-      .app {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .headline {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
-    }
-
-    .sub {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-
-    .apology-block {
-      background: #f9fafb;
-      border-radius: 16px;
-      padding: 16px 18px 18px;
-      border: 1px solid #e5e7eb;
-      margin-bottom: 20px;
-    }
-
-    .apology-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
-      margin-bottom: 6px;
-    }
-
-    .apology-textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid #d1d5db;
-      padding: 10px 12px;
-      font-family: inherit;
-      font-size: 14px;
-      resize: vertical;
-      min-height: 80px;
-      outline: none;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .apology-textarea:focus {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.15);
-    }
-
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 4px;
-      margin-bottom: 10px;
-    }
-
-    .primary-btn {
-      border: none;
-      border-radius: 999px;
-      padding: 10px 22px;
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-      color: #f9fafb;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 12px 25px rgba(79, 70, 229, 0.35);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.14s ease;
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.5);
-    }
-
-    .primary-btn:active {
-      transform: translateY(1px) scale(0.99);
-      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
-    }
-
-    .primary-btn[disabled] {
-      opacity: 0.7;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .hint {
-      font-size: 11px;
-      color: #6b7280;
-    }
-
-    .right-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-    }
-
-    .wheel-wrapper {
-      position: relative;
-      width: 280px;
-      height: 280px;
-    }
-
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 8px solid #111827;
-      box-shadow:
-        0 14px 30px rgba(15, 23, 42, 0.5),
-        inset 0 0 0 4px rgba(249, 250, 251, 0.9);
-      background:
-        conic-gradient(
-          #4f46e5 0deg 36deg,
-          #06b6d4 36deg 72deg,
-          #22c55e 72deg 108deg,
-          #ec4899 108deg 144deg,
-          #f59e0b 144deg 180deg,
-          #3b82f6 180deg 216deg,
-          #10b981 216deg 252deg,
-          #e11d48 252deg 288deg,
-          #a855f7 288deg 324deg,
-          #f97316 324deg 360deg
-        );
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1.01);
-      transform: rotate(0deg);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .wheel-center {
-      position: absolute;
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      background: #f9fafb;
-      border: 4px solid #111827;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: #4b5563;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.55);
-      z-index: 2;
-    }
-
-    .pointer {
-      position: absolute;
-      top: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 14px solid transparent;
-      border-right: 14px solid transparent;
-      border-bottom: 26px solid #111827;
-      filter: drop-shadow(0 4px 4px rgba(15, 23, 42, 0.45));
-      z-index: 5;
-    }
-
-    .result-card {
-      margin-top: 8px;
-      width: 100%;
-      max-width: 360px;
-      border-radius: 16px;
-      border: 1px solid #e5e7eb;
-      background: #f9fafb;
-      padding: 14px 16px 16px;
-    }
-
-    .result-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.11em;
-      color: #9ca3af;
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    .result-text {
-      font-size: 14px;
-      font-weight: 600;
-      color: #111827;
-    }
-
-    .list-card {
-      margin-top: 16px;
-      border-radius: 16px;
-      border: 1px dashed #d1d5db;
-      background: #f9fafb;
-      padding: 14px 16px 10px;
-      font-size: 13px;
-    }
-
-    .list-card-title {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #374151;
+      .app { grid-template-columns: 1fr; }
     }
 
     .punishment-list {
       padding-left: 18px;
-      margin: 4px 0 0;
-      max-height: 170px;
-      overflow: auto;
+      margin-top: 10px;
+      line-height: 2.0; /* DOUBLE SPACED */
+      font-size: 18px; /* BIGGER */
+      font-weight: 500;
     }
 
     .punishment-list li {
-      margin-bottom: 2px;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
     }
+
+    /* COLOR CODING — must match wheel slice order */
+    .p0 { background:#4f46e5; }
+    .p1 { background:#06b6d4; }
+    .p2 { background:#22c55e; }
+    .p3 { background:#ec4899; }
+    .p4 { background:#f59e0b; }
+    .p5 { background:#3b82f6; }
+    .p6 { background:#10b981; }
+    .p7 { background:#e11d48; }
+    .p8 { background:#a855f7; }
+    .p9 { background:#f97316; }
 
     .highlight {
-      background: #eef2ff;
-      border-radius: 8px;
-      padding: 2px 6px;
+      outline: 4px solid #111827;
+      transform: scale(1.04);
+      transition: 0.25s;
     }
 
-    .status {
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 6px;
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
     }
-
-    .status strong {
+    .modal-box {
+      width: 90%;
+      max-width: 480px;
+      background: white;
+      padding: 26px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+      animation: pop 0.4s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-box h2 {
+      font-size: 20px;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .modal-box p {
+      line-height: 1.6;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .close-btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background: #4f46e5;
+      color: white;
       font-weight: 600;
-      color: #111827;
+      font-size: 15px;
     }
   </style>
 </head>
 <body>
-  <main class="app">
-    <!-- LEFT COLUMN: apology + controls -->
-    <section>
-      <h1 class="headline">The Official Apology Wheel</h1>
-      <p class="sub">
-        Write your apology, then let the wheel choose your “punishment” —
-        small, productive consequences to help you reset, repair, and move forward.
-      </p>
 
-      <div class="apology-block">
-        <div class="apology-label">Your apology</div>
-        <textarea
-          class="apology-textarea"
-          placeholder="Write what you are apologizing for, what you learned, and how you plan to do better next time."
-        ></textarea>
+<!-- APOLOGY MODAL -->
+<div class="modal-overlay" id="apologyModal">
+  <div class="modal-box">
+    <h2>Izzabella</h2>
+    <p>
+      This is my apology to you. I love you more than anything and you don’t deserve
+      the way I’ve treated you. I know this doesn’t make up for what I’ve said and done,
+      but I hope you like it lol.
+    </p>
+    <button class="close-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
 
-        <div class="controls">
-          <button class="primary-btn" id="spinBtn">Spin the Wheel</button>
-          <span class="hint">The wheel will randomly assign one action.</span>
-        </div>
+<main class="app">
+  <section>
+    <h1 class="headline">The Official Apology Wheel</h1>
+    <p class="sub">Write your apology, then spin for your fate.</p>
 
-        <div class="status" id="statusText">
-          Status: <strong>Ready.</strong> Write your apology and spin.
-        </div>
+    <div class="list-card">
+      <div class="list-card-title">Your 10 consequences</div>
+      <ol class="punishment-list" id="punishmentList"></ol>
+    </div>
+  </section>
+
+  <section class="right-col">
+    <div class="wheel-wrapper">
+      <div class="pointer"></div>
+      <div class="wheel" id="wheel">
+        <div class="wheel-center">Apology Wheel</div>
       </div>
+    </div>
 
-      <div class="list-card">
-        <div class="list-card-title">The 10 possible consequences</div>
-        <ol class="punishment-list" id="punishmentList"></ol>
-      </div>
-    </section>
+    <button class="primary-btn" id="spinBtn">Spin the Wheel</button>
 
-    <!-- RIGHT COLUMN: wheel + result -->
-    <section class="right-col">
-      <div class="wheel-wrapper">
-        <div class="pointer"></div>
-        <div class="wheel" id="wheel">
-          <div class="wheel-center">Apology Wheel</div>
-        </div>
-      </div>
+    <div class="result-card">
+      <div class="result-label">Selected consequence</div>
+      <div class="result-text" id="resultText">Spin to see.</div>
+    </div>
+  </section>
+</main>
 
-      <div class="result-card">
-        <div class="result-label">Selected consequence</div>
-        <div class="result-text" id="resultText">
-          Spin the wheel to get your consequence.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const punishments = [
+<script>
+ const punishments = [
       "You get 1 scary movie and 1 full hour of atching me play a scary game reedemable only if worship music is active",
       "You get 3 free take miya for a walk card x amount of miles per your request and you get food avaliable if funds are in acc).",
       "Puch my balls free card just 1 rule you have to tel me when you are doing it",
@@ -348,81 +171,64 @@
       "This is a free darbz run you get 5 reddemables if i am working playing a gane it does not matter MY MAJESTY NEEDS DA DARBZ BRUH!"
     ];
 
-    const wheel = document.getElementById("wheel");
-    const spinBtn = document.getElementById("spinBtn");
-    const resultText = document.getElementById("resultText");
-    const statusText = document.getElementById("statusText");
-    const punishmentList = document.getElementById("punishmentList");
+  const punishmentList = document.getElementById("punishmentList");
 
-    // Render the list of punishments
-    function renderPunishments() {
-      punishmentList.innerHTML = "";
-      punishments.forEach((p, index) => {
-        const li = document.createElement("li");
-        li.textContent = p;
-        li.dataset.index = index;
-        punishmentList.appendChild(li);
+  /* RENDER PUNISHMENTS */
+  punishments.forEach((text, idx) => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    li.classList.add("p" + idx);
+    li.dataset.index = idx;
+    punishmentList.appendChild(li);
+  });
+
+  /* SPIN LOGIC (kept from original) */
+  const wheel = document.getElementById("wheel");
+  const spinBtn = document.getElementById("spinBtn");
+  const resultText = document.getElementById("resultText");
+  let currentRotation = 0;
+  let isSpinning = false;
+
+  function spinWheel() {
+    if (isSpinning) return;
+    isSpinning = true;
+
+    const extra = 5 * 360;
+    const random = Math.floor(Math.random() * 360);
+    const target = currentRotation + extra + random;
+
+    wheel.style.transition = "4s cubic-bezier(0.23,1,0.32,1.01)";
+    wheel.style.transform = `rotate(${target}deg)`;
+
+    wheel.addEventListener("transitionend", () => {
+      currentRotation = target % 360;
+
+      const slice = 360 / punishments.length;
+      const corrected = (360 - currentRotation + slice / 2) % 360;
+      let index = Math.floor(corrected / slice);
+      if (index === punishments.length) index = 0;
+
+      const chosen = punishments[index];
+      resultText.textContent = chosen;
+
+      document.querySelectorAll(".punishment-list li").forEach(li => {
+        li.classList.remove("highlight");
       });
-    }
+      const li = document.querySelector(`li[data-index="${index}"]`);
+      li.classList.add("highlight");
+      li.scrollIntoView({ behavior:"smooth", block:"center" });
 
-    renderPunishments();
+      isSpinning = false;
+    }, { once:true });
+  }
 
-    let currentRotation = 0;
-    let isSpinning = false;
+  spinBtn.addEventListener("click", spinWheel);
 
-    function spinWheel() {
-      if (isSpinning) return;
-      isSpinning = true;
+  /* MODAL CONTROL */
+  function closeModal() {
+    document.getElementById("apologyModal").style.display = "none";
+  }
+</script>
 
-      spinBtn.disabled = true;
-      statusText.innerHTML = 'Status: <strong>Spinning…</strong>';
-
-      const extraSpins = 5 * 360;
-      const randomOffset = Math.floor(Math.random() * 360);
-      const targetRotation = currentRotation + extraSpins + randomOffset;
-
-      wheel.style.transition = "transform 4s cubic-bezier(0.23, 1, 0.32, 1.01)";
-      wheel.style.transform = `rotate(${targetRotation}deg)`;
-
-      const handleTransitionEnd = () => {
-        wheel.removeEventListener("transitionend", handleTransitionEnd);
-
-        currentRotation = targetRotation % 360;
-
-        const sliceSize = 360 / punishments.length;
-        const correctedRotation = (360 - currentRotation + sliceSize / 2) % 360;
-        let selectedIndex = Math.floor(correctedRotation / sliceSize);
-        if (selectedIndex === punishments.length) {
-          selectedIndex = 0;
-        }
-
-        const chosen = punishments[selectedIndex];
-
-        resultText.textContent = chosen;
-        statusText.innerHTML =
-          'Status: <strong>Assigned.</strong> Complete your consequence before spinning again.';
-
-        // highlight in list
-        document
-          .querySelectorAll("#punishmentList li")
-          .forEach((li) => li.classList.remove("highlight"));
-
-        const targetLi = document.querySelector(
-          `#punishmentList li[data-index="${selectedIndex}"]`
-        );
-        if (targetLi) {
-          targetLi.classList.add("highlight");
-          targetLi.scrollIntoView({ block: "center", behavior: "smooth" });
-        }
-
-        isSpinning = false;
-        spinBtn.disabled = false;
-      };
-
-      wheel.addEventListener("transitionend", handleTransitionEnd);
-    }
-
-    spinBtn.addEventListener("click", spinWheel);
-  </script>
 </body>
 </html>
