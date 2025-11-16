@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Apology Wheel</title>
+
   <style>
     * { box-sizing: border-box; }
 
@@ -10,62 +11,163 @@
       margin: 0;
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #f5f7ff, #e6ebff);
+      background: radial-gradient(circle at top, #eef2ff, #dbe4ff);
       color: #111827;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 40px;
     }
 
     .app {
-      max-width: 960px;
       width: 100%;
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 32px 28px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      max-width: 1100px;
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 32px;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
     }
 
-    @media (max-width: 800px) {
+    @media(max-width: 900px){
       .app { grid-template-columns: 1fr; }
     }
 
+    /* PUNISHMENT LIST */
     .punishment-list {
-      padding-left: 18px;
-      margin-top: 10px;
-      line-height: 2.0; /* DOUBLE SPACED */
-      font-size: 18px; /* BIGGER */
-      font-weight: 500;
-    }
-
-    .punishment-list li {
-      margin-bottom: 12px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      color: white;
+      padding-left: 0;
+      margin-top: 20px;
+      line-height: 2.1;
+      font-size: 20px;
+      list-style: none;
       font-weight: 600;
     }
 
-    /* COLOR CODING — must match wheel slice order */
-    .p0 { background:#4f46e5; }
-    .p1 { background:#06b6d4; }
-    .p2 { background:#22c55e; }
-    .p3 { background:#ec4899; }
-    .p4 { background:#f59e0b; }
-    .p5 { background:#3b82f6; }
-    .p6 { background:#10b981; }
-    .p7 { background:#e11d48; }
-    .p8 { background:#a855f7; }
-    .p9 { background:#f97316; }
+    .punishment-list li {
+      padding: 14px 18px;
+      border-radius: 12px;
+      color: white;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: 0.25s;
+    }
 
     .highlight {
       outline: 4px solid #111827;
-      transform: scale(1.04);
+      transform: scale(1.05);
+    }
+
+    /* COLOR MATCH EXACTLY TO WHEEL SLICE ORDER */
+    .p0{background:#4f46e5;}
+    .p1{background:#06b6d4;}
+    .p2{background:#22c55e;}
+    .p3{background:#ec4899;}
+    .p4{background:#f59e0b;}
+    .p5{background:#3b82f6;}
+    .p6{background:#10b981;}
+    .p7{background:#e11d48;}
+    .p8{background:#a855f7;}
+    .p9{background:#f97316;}
+
+    /* WHEEL */
+    .wheel-wrapper {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      margin: 0 auto;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 12px solid #111827;
+      position: relative;
+      background: conic-gradient(
+        #4f46e5 0deg 36deg,
+        #06b6d4 36deg 72deg,
+        #22c55e 72deg 108deg,
+        #ec4899 108deg 144deg,
+        #f59e0b 144deg 180deg,
+        #3b82f6 180deg 216deg,
+        #10b981 216deg 252deg,
+        #e11d48 252deg 288deg,
+        #a855f7 288deg 324deg,
+        #f97316 324deg 360deg
+      );
+      box-shadow:
+        0 18px 45px rgba(0,0,0,0.4),
+        inset 0 0 0 6px rgba(255,255,255,0.75);
+      transition: transform 4s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    .wheel-center {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: white;
+      border: 6px solid #111827;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    /* POINTER */
+    .pointer {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 22px solid transparent;
+      border-right: 22px solid transparent;
+      border-bottom: 34px solid #111827;
+      filter: drop-shadow(0 6px 4px rgba(0,0,0,0.5));
+      z-index: 5;
+    }
+
+    /* SPIN BUTTON */
+    .primary-btn {
+      margin-top: 20px;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg,#4f46e5,#6366f1);
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      box-shadow: 0 12px 30px rgba(79,70,229,0.45);
       transition: 0.25s;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(79,70,229,0.65);
+    }
+
+    .result-card {
+      margin-top: 20px;
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      border: 1px solid #e5e7eb;
+      text-align: center;
     }
 
     /* MODAL */
@@ -78,42 +180,50 @@
       justify-content: center;
       z-index: 9999;
     }
-    .modal-box {
-      width: 90%;
-      max-width: 480px;
-      background: white;
-      padding: 26px;
-      border-radius: 18px;
-      text-align: center;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.4);
-      animation: pop 0.4s ease;
+
+    .modal-box{
+      width:90%;
+      max-width:500px;
+      background:white;
+      padding:32px;
+      border-radius:22px;
+      text-align:center;
+      animation:pop .4s ease;
+      box-shadow:0 20px 60px rgba(0,0,0,0.45);
     }
-    @keyframes pop {
-      0% { transform: scale(0.7); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+
+    @keyframes pop{
+      from{transform:scale(.6);opacity:0;}
+      to{transform:scale(1);opacity:1;}
     }
-    .modal-box h2 {
-      font-size: 20px;
-      margin-bottom: 14px;
-      font-weight: 700;
+
+    .modal-box h2{
+      font-size:26px;
+      margin-bottom:12px;
+      font-weight:800;
     }
-    .modal-box p {
-      line-height: 1.6;
-      font-size: 16px;
-      margin-bottom: 20px;
+
+    .modal-box p{
+      font-size:18px;
+      line-height:1.7;
+      margin-bottom:20px;
     }
-    .close-btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      background: #4f46e5;
-      color: white;
-      font-weight: 600;
-      font-size: 15px;
+
+    .close-btn{
+      padding:12px 26px;
+      background:#4f46e5;
+      border:none;
+      border-radius:14px;
+      color:white;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
     }
   </style>
 </head>
+
+
+
 <body>
 
 <!-- APOLOGY MODAL -->
@@ -121,114 +231,118 @@
   <div class="modal-box">
     <h2>Izzabella</h2>
     <p>
-      This is my apology to you. I love you more than anything and you don’t deserve
-      the way I’ve treated you. I know this doesn’t make up for what I’ve said and done,
+      This is my apology to you.  
+      I love you more than anything and you don’t deserve the way I’ve treated you.  
+      I know this doesn’t make up for what I’ve said and done,  
       but I hope you like it lol.
     </p>
     <button class="close-btn" onclick="closeModal()">Close</button>
   </div>
 </div>
 
-<main class="app">
-  <section>
-    <h1 class="headline">The Official Apology Wheel</h1>
-    <p class="sub">Write your apology, then spin for your fate.</p>
 
-    <div class="list-card">
-      <div class="list-card-title">Your 10 consequences</div>
-      <ol class="punishment-list" id="punishmentList"></ol>
-    </div>
+
+<div class="app">
+
+  <!-- LEFT SIDE -->
+  <section>
+    <h1 style="font-size:32px;font-weight:800;margin-bottom:10px;">The Official Apology Wheel</h1>
+    <p style="color:#6b7280;font-size:18px;">
+      Spin the wheel… and let fate choose your punishment.
+    </p>
+
+    <ol class="punishment-list" id="punishmentList"></ol>
   </section>
 
-  <section class="right-col">
+
+
+  <!-- RIGHT SIDE -->
+  <section style="text-align:center;">
     <div class="wheel-wrapper">
       <div class="pointer"></div>
       <div class="wheel" id="wheel">
-        <div class="wheel-center">Apology Wheel</div>
+        <div class="wheel-center">Apology<br>Wheel</div>
       </div>
     </div>
 
-    <button class="primary-btn" id="spinBtn">Spin the Wheel</button>
+    <button class="primary-btn" id="spinBtn">Spin The Wheel</button>
 
     <div class="result-card">
-      <div class="result-label">Selected consequence</div>
-      <div class="result-text" id="resultText">Spin to see.</div>
+      <div id="resultText">Spin to see your punishment.</div>
     </div>
   </section>
-</main>
+
+</div>
+
+
 
 <script>
- const punishments = [
-      "You get 1 scary movie and 1 full hour of atching me play a scary game reedemable only if worship music is active",
-      "You get 3 free take miya for a walk card x amount of miles per your request and you get food avaliable if funds are in acc).",
-      "Puch my balls free card just 1 rule you have to tel me when you are doing it",
-      "Darbz run and dollar general you get 3 of these redeemable when funds are avaliable and we can go wherever doesnt have to be dollar general ,target,homegoods,walmart,",
-      "You get 10 hours of only battle royale it doesnt have to be ranked no cussing and no duo zonewars and only happy vibes no sweats lol",
-      "You get a full massage ith music and food and face masks redeemable when funds are accquired",
-      "You get to tell me to do something or say something embarassing in front of my family you get 3 of these ",
-      "1 day of no wonder worlds no work just pamper and i cant talk about money or anything related redeemble after a monday lol",
-      "i am your butler for a day you get 3 of these wether you want breakfast in bed or need a water when we are in a match regardless of whatever im doing and what you need is TOP PRIORITY",
-      "This is a free darbz run you get 5 reddemables if i am working playing a gane it does not matter MY MAJESTY NEEDS DA DARBZ BRUH!"
-    ];
+  const punishments = [
+    "You get 1 scary movie & 1 full hour of watching me play a scary game (must have worship music on).",
+    "You get 3 free 'take Miya for a walk' cards (miles of your choice).",
+    "Punch my balls free card (must tell me before doing it).",
+    "Darbz / Dollar General run — 3 redeemables.",
+    "10 hours of ONLY battle royale — no cussing, no zone wars, good vibes only.",
+    "Full massage with music, food & face masks.",
+    "Tell me to do or say something embarrassing in front of my family — 3 redeemables.",
+    "1 full pamper day — no Wonder Worlds, no work, no money talk.",
+    "I am your butler for a day — 3 redeemables.",
+    "Free Darbz run — 5 redeemables, no matter what I am doing."
+  ];
 
   const punishmentList = document.getElementById("punishmentList");
 
-  /* RENDER PUNISHMENTS */
-  punishments.forEach((text, idx) => {
+  punishments.forEach((text, idx)=>{
     const li = document.createElement("li");
     li.textContent = text;
-    li.classList.add("p" + idx);
+    li.classList.add("p"+idx);
     li.dataset.index = idx;
     punishmentList.appendChild(li);
   });
 
-  /* SPIN LOGIC (kept from original) */
-  const wheel = document.getElementById("wheel");
-  const spinBtn = document.getElementById("spinBtn");
-  const resultText = document.getElementById("resultText");
   let currentRotation = 0;
   let isSpinning = false;
+  const wheel = document.getElementById("wheel");
+  const resultText = document.getElementById("resultText");
 
-  function spinWheel() {
-    if (isSpinning) return;
+  function spinWheel(){
+    if(isSpinning) return;
     isSpinning = true;
 
-    const extra = 5 * 360;
-    const random = Math.floor(Math.random() * 360);
+    const extra = 360*5;
+    const random = Math.random()*360;
     const target = currentRotation + extra + random;
 
-    wheel.style.transition = "4s cubic-bezier(0.23,1,0.32,1.01)";
     wheel.style.transform = `rotate(${target}deg)`;
 
-    wheel.addEventListener("transitionend", () => {
+    wheel.addEventListener("transitionend", ()=>{
       currentRotation = target % 360;
 
-      const slice = 360 / punishments.length;
-      const corrected = (360 - currentRotation + slice / 2) % 360;
-      let index = Math.floor(corrected / slice);
-      if (index === punishments.length) index = 0;
+      const slice = 360/punishments.length;
+      const corrected = (360 - currentRotation + slice/2)%360;
+      let index = Math.floor(corrected/slice);
 
       const chosen = punishments[index];
       resultText.textContent = chosen;
 
-      document.querySelectorAll(".punishment-list li").forEach(li => {
-        li.classList.remove("highlight");
-      });
+      document.querySelectorAll(".punishment-list li")
+        .forEach(li=>li.classList.remove("highlight"));
+
       const li = document.querySelector(`li[data-index="${index}"]`);
       li.classList.add("highlight");
-      li.scrollIntoView({ behavior:"smooth", block:"center" });
+      li.scrollIntoView({behavior:"smooth", block:"center"});
 
       isSpinning = false;
-    }, { once:true });
+    }, {once:true});
   }
 
-  spinBtn.addEventListener("click", spinWheel);
+  document.getElementById("spinBtn").addEventListener("click", spinWheel);
 
-  /* MODAL CONTROL */
-  function closeModal() {
-    document.getElementById("apologyModal").style.display = "none";
+  function closeModal(){
+    document.getElementById("apologyModal").style.display="none";
   }
 </script>
 
 </body>
 </html>
+
